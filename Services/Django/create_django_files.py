@@ -14,7 +14,7 @@ from Services.Angular_shell.files.shell_tsconfig_spec_json_file import ShellTsco
 from Utils import utils
 
 
-class CreateAngularShell:
+class CreateDjangoFiles:
     def __init__(self, config: BaseConfig):
         self.proyect_origin_path = f"{config.proyect_origin_path}/libs"
         self.scope_name = config.scope  # biolanglobal (StringCase)

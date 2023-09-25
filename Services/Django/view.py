@@ -1,4 +1,4 @@
-class ShellEslintrcJsonFile:
+class ViewFile:
 
     @staticmethod
     def get_file_content():

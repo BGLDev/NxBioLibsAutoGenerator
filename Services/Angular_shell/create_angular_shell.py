@@ -1,16 +1,16 @@
 from Models.base_config import BaseConfig
 from Models.string_case import StringCase
-from Services.Angular_shell.shell_eslintrc_json_file import ShellEslintrcJsonFile
-from Services.Angular_shell.shell_index_ts_file import ShellIndexTsFile
-from Services.Angular_shell.shell_jest_config_ts_file import ShellJestConfigTsFile
-from Services.Angular_shell.shell_module_ts_file import ShellModuleTsFile
-from Services.Angular_shell.shell_proyect_json_file import ShellProyectJsonFile
-from Services.Angular_shell.shell_readme_md_file import ShellReadmeMdFile
-from Services.Angular_shell.shell_routes_ts_file import ShellRoutesTsFile
-from Services.Angular_shell.shell_test_setup_ts_file import ShellTestSetupTsFile
-from Services.Angular_shell.shell_tsconfig_json_file import ShellTsconfigJsonFile
-from Services.Angular_shell.shell_tsconfig_lib_json_file import ShellTsconfigLibJsonFile
-from Services.Angular_shell.shell_tsconfig_spec_json_file import ShellTsconfigSpecJsonFile
+from Services.Angular_shell.files.shell_eslintrc_json_file import ShellEslintrcJsonFile
+from Services.Angular_shell.files.src.shell_index_ts_file import ShellIndexTsFile
+from Services.Angular_shell.files.shell_jest_config_ts_file import ShellJestConfigTsFile
+from Services.Angular_shell.files.src.lib.shell_module_ts_file import ShellModuleTsFile
+from Services.Angular_shell.files.shell_proyect_json_file import ShellProyectJsonFile
+from Services.Angular_shell.files.shell_readme_md_file import ShellReadmeMdFile
+from Services.Angular_shell.files.src.lib.shell_routes_ts_file import ShellRoutesTsFile
+from Services.Angular_shell.files.src.shell_test_setup_ts_file import ShellTestSetupTsFile
+from Services.Angular_shell.files.shell_tsconfig_json_file import ShellTsconfigJsonFile
+from Services.Angular_shell.files.shell_tsconfig_lib_json_file import ShellTsconfigLibJsonFile
+from Services.Angular_shell.files.shell_tsconfig_spec_json_file import ShellTsconfigSpecJsonFile
 from Utils import utils
 
 
