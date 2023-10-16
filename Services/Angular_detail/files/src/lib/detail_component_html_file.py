@@ -94,8 +94,8 @@ class DetailHtmlFile:
                         <div class="col">
                           <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>{{{{ '{param_name.snake.upper()}' | transloco }}}}</mat-label>
-                            <mat-select formControlName="{param_name.camel}">
-                            <mat-select-trigger #option{param_name.pascal}>
+                            <mat-select formControlName="{param_name.camel}" #option{param_name.pascal}>
+                            <mat-select-trigger >
                                 <mat-icon
                                   class="material-symbols-outlined"
                                   [fontIcon]="option{param_name.pascal}.value ? 'done' : 'close'"

@@ -45,6 +45,9 @@ class DetailComponentTsFile:
                     private router: Router,
                     private activatedRoute: ActivatedRoute,
                     private filterService: FilterService,
+                    private globalFormDateService: GlobalFormDateService,
+                    public themingService: ThemingService,
+                    private globalFormValidatorService: GlobalFormValidatorService,
                     private actionsService: ActionsService,{constructor_services}
                     private {module_name.camel}{lib_user_type.pascal}Service: {module_name.pascal}{lib_user_type.pascal}Service,
                   ) {{
@@ -193,7 +196,7 @@ class DetailComponentTsFile:
             elif param.type == TYPE_DATE:
                 fk_options += f'''
                       if (backupFormValue.{param.name.camel}) {{
-                        const {param.name.camel}YYYYMMDD = this.formatDate(backupFormValue.{param.name.camel})
+                        const {param.name.camel}YYYYMMDD = this.globalFormDateService.backDateFormat(backupFormValue.{param.name.camel})
                         backupFormValue.{param.name.camel} = {param.name.camel}YYYYMMDD
                       }}'''
 

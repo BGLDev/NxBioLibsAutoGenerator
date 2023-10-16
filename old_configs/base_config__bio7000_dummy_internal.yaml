@@ -1,0 +1,17 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: Bio7000Dummy
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   post_time : models.DateTimeField(auto_now_add:True)
+   biosensor_serial : models.CharField(max_length:50)
+   dummy_cell_serial : models.CharField(max_length:50)
+   software_version : models.CharField(max_length:50)
+   user : models.ForeignKey(settings.AUTH_USER_MODEL, on_delete:models.RESTRICT, related_name:"dummy_validations_7000",)
+   location_id : models.CharField(max_length:50)
+   curve_working_one : models.JSONField(default:dict)
+   curve_working_two : models.JSONField(default:dict)
+   comments : models.CharField(max_length:500, blank:True, null:True)
+   timestamp : models.CharField(max_length:50, blank:True, null:True)

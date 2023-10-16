@@ -1,48 +1,14 @@
-PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/biolan
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
 #PROYECT_ORIGIN_PATH: ./__Result
 SCOPE: Biolanglobal
 USER_TYPE: Internal
-DJANGO_MODEL_NAME: Analysis3000
+DJANGO_MODEL_NAME: SpeBatchQualitycontrol
 DJANGO_MODEL_EXTENDS: BaseModel
 DJANGO_MODEL_PARAMS:
-    local_timestamp: models.DateTimeField()
-    biosensor_id: models.CharField(max_length=50, null=True)
-    biosensor_serial: models.CharField(max_length=50, null=True)
-    biotest_id: models.CharField(max_length=50, null=True)
-    biotest_code: models.CharField(max_length=50, null=True)
-    electrode_id: models.CharField(max_length=50, null=True)
-    electrode_code: models.CharField(max_length=50, null=True)
-    operation: models.CharField(max_length=40, null=True)
-    application_id: models.CharField(max_length=50, null=True)
-    application_label: models.CharField(max_length=50, null=True)
-    matrix_name: models.CharField(max_length=50, null=True)
-    molecule_code: models.CharField(max_length=50, null=True)
-    start: ArrayField(models.IntegerField(null=True))
-    biotest_measure_count: models.IntegerField()
-    data_measure: models.JSONField(default=dict)
-    configuration_range_id: models.CharField(max_length=40, null=True)
-    configuration_range: models.JSONField(default=dict)
-    configuration_application_id: models.CharField(max_length=40, null=True)
-    configuration_application: models.JSONField(default=dict)
-    units: models.CharField(max_length=10, blank=True, null=True)
-    comments: models.CharField(max_length=500, blank=True, null=True)
-    post_time: models.DateTimeField(default=timezone.now)
-    error_type: models.CharField(max_length=100, null=True)
-    label: models.CharField(max_length=50, null=True, blank=True)
-    t0: models.IntegerField(null=True, blank=True)
-    i0: models.FloatField(null=True, blank=True)
-    t1: models.IntegerField(null=True, blank=True)
-    i1: models.FloatField(null=True, blank=True)
-    s1: models.FloatField(null=True, blank=True)
-    t2: models.IntegerField(null=True, blank=True)
-    i2: models.FloatField(null=True, blank=True)
-    s2: models.FloatField(null=True, blank=True)
-    t3: models.IntegerField(null=True, blank=True)
-    i3: models.FloatField(null=True, blank=True)
-    s3: models.FloatField(null=True, blank=True)
-    user_id: models.CharField(max_length=40, null=True)
-    errors: models.ManyToManyField(Errors, related_name="MeasureError", blank=True)
-    decimals: models.IntegerField(null=True, blank=True)
-    result_min: models.FloatField(null=True, blank=True)
-    result_max: models.FloatField(null=True, blank=True)
-    version_app: models.CharField(max_length=15, null=True, default=None)
+   visual_control_discard : models.IntegerField(default:0)
+   polymeter_control_discard : models.IntegerField(default:0)
+   comments : models.CharField(null:True, max_length:250)
+   spe_batch : models.ForeignKey(SpeBatch, on_delete:models.CASCADE,)
+   quality_control_accepted : models.BooleanField(default:False)
+   user_in_charge : models.ForeignKey(User, on_delete:models.DO_NOTHING, null:True)
+   

@@ -1,0 +1,21 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: SpeBatch
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   label : models.CharField(max_length:10)
+   assembly_date : models.DateField()
+   sheet_count : models.IntegerField(default:42)
+   comments : models.CharField(max_length:200)
+   print_speed_forward : models.CharField(max_length:50, default:"25mm/s")
+   print_speed_backward : models.CharField(max_length:50, default:"100 (Ag/AgCl a 60)")
+   print_from : models.CharField(max_length:50, default:"230mm")
+   print_to : models.CharField(max_length:50, default:"-240mm")
+   print_pressure : models.CharField(max_length:50, default:"1,5/74 en (aislante 1,8 bar)")
+   pcb_thickness : models.CharField(max_length:50, default:"0,1mm")
+   print_mode : models.CharField(max_length:50, default:"1")
+   snap_off : models.CharField(max_length:50, default:"3mm")
+   separation_way : models.CharField(max_length:50, default:"0,1mm")
+   separation_speed : models.CharField(max_length:50, default:"0mm/s")

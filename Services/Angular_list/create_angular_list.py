@@ -73,50 +73,13 @@ class CreateAngularList:
             origin_path += f"{path}/"
 
     def _create_module_proyect_json(self):
-        # file_content = f'''
-        #        {{
-        #          "name": "{self.lib_path.replace('/','-')}",
-        #          "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
-        #          "projectType": "library",
-        #          "sourceRoot": "libs/{self.lib_path}/src",
-        #          "prefix": "biolan",
-        #          "targets": {{
-        #            "test": {{
-        #              "executor": "@nrwl/jest:jest",
-        #              "outputs": ["{{workspaceRoot}}/coverage/{{projectRoot}}"],
-        #              "options": {{
-        #                "jestConfig": "libs/{self.lib_path}/jest.config.ts",
-        #                "passWithNoTests": true
-        #              }}
-        #            }},
-        #            "lint": {{
-        #              "executor": "@nrwl/linter:eslint",
-        #              "outputs": ["{{options.outputFile}}"],
-        #              "options": {{
-        #                "lintFilePatterns": [
-        #                  "libs/{self.lib_path}/**/*.ts",
-        #                  "libs/{self.lib_path}/**/*.html"
-        #                ]
-        #              }}
-        #            }}
-        #          }},
-        #          "tags": ["scope:{self.scope_name.kebab}", "type:{self.sub_folder_name.kebab }"]
-        #        }}
-        #        '''
+
         file_content = ListProyectJsonFile().get_file_content(self.lib_path, self.module_name, self.sub_folder_name)
         file_content = utils.delete_tabs_to_text(file_content)
         utils.create_file(f"{self.proyect_lib_absolute_path}", 'project', '.json', file_content)
 
     def _create_module_readme_md(self):
-        # file_content = f'''
-        #        # {self.lib_path.replace('/','-')}
-        #
-        #        This library was generated with [Nx](https://nx.dev).
-        #
-        #        ## Running unit tests
-        #
-        #        Run `nx test {self.lib_path.replace('/','-')}` to execute the unit tests.
-        #        '''
+
         file_content = ListReadmeMdFile().get_file_content(self.lib_path)
         file_content = utils.delete_tabs_to_text(file_content)
         utils.create_file(f"{self.proyect_lib_absolute_path}", 'README', '.md', file_content)
@@ -164,7 +127,7 @@ class CreateAngularList:
         file_content = utils.delete_tabs_to_text(file_content)
         utils.create_file(f"{self.proyect_lib_absolute_path}/src", 'test-setup', '.ts', file_content)
     def _create_component_html_file(self):
-        file_content = ListHtmlFile().get_file_content(self.params_read, self.module_name)
+        file_content = ListHtmlFile().get_file_content(self.params_write, self.module_name)
         file_content = utils.delete_tabs_to_text(file_content)
         utils.create_file(f"{self.proyect_lib_absolute_path}/src/lib", f"{self.lib_name.kebab}", '.component.html', file_content)
 
@@ -184,7 +147,7 @@ class CreateAngularList:
         utils.create_file(f"{self.proyect_lib_absolute_path}/src/lib", f"{self.lib_name.kebab}", '.datasource.ts', file_content)
 
     def _create_filter_ts_file(self):
-        file_content = ListFilterTsFile().get_file_content(self.lib_name,self.params_read, self.lib_user_type, self.scope_name)
+        file_content = ListFilterTsFile().get_file_content(self.lib_name,self.params_write, self.lib_user_type, self.scope_name)
         file_content = utils.delete_tabs_to_text(file_content)
         utils.create_file(f"{self.proyect_lib_absolute_path}/src/lib", f"{self.lib_name.kebab}", '.filter.ts', file_content)
 
