@@ -100,21 +100,21 @@ class DetailHtmlFile:
                                   class="material-symbols-outlined"
                                   [fontIcon]="option{param_name.pascal}.value ? 'done' : 'close'"
                                 ></mat-icon>
-                                {{{{ globalTranslates.val[option{param_name.pascal}.value ? 'YES' : 'NOT'] }}}}
+                                {{{{ (globalTranslates.translations$ | async)?.[option{param_name.pascal}.value ? 'YES' : 'NOT'] }}}}
                             </mat-select-trigger>
                               <mat-option [value]="true">
                                 <mat-icon
                                   class="material-symbols-outlined"
                                   fontIcon="done"
                                 ></mat-icon>
-                                {{{{ globalTranslates.val['YES'] }}}}
+                                {{{{ (globalTranslates.translations$ | async)?.['YES'] }}}}
                               </mat-option>
                               <mat-option [value]="false">
                                 <mat-icon
                                   class="material-symbols-outlined"
                                   fontIcon="close"
                                 ></mat-icon>
-                                {{{{ globalTranslates.val['NOT'] }}}}
+                                {{{{ (globalTranslates.translations$ | async)?.['NOT'] }}}}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>

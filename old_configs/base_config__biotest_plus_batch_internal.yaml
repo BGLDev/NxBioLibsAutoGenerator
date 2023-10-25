@@ -1,0 +1,15 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: BiotestPlusBatch
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   enzyme_specifications : models.CharField(max_length:300, blank:True, null:True)
+   assembly_date : models.DateField(default:timezone.now)
+   code : models.CharField(max_length:13, default:None, null:True)
+   enzyme_batch : models.ForeignKey(EnzymeBatch, on_delete:models.RESTRICT)
+   comments : models.CharField(max_length:300)
+   is_available : models.BooleanField(default:False)
+   available_packs : models.IntegerField(default:0)
+   total_packs : models.IntegerField(default:0)

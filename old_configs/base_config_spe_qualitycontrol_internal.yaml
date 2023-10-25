@@ -1,0 +1,14 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: SpeBatchQualitycontrol
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   visual_control_discard : models.IntegerField(default:0)
+   polymeter_control_discard : models.IntegerField(default:0)
+   comments : models.CharField(null:True, max_length:250)
+   spe_batch : models.ForeignKey(SpeBatch, on_delete:models.CASCADE,)
+   quality_control_accepted : models.BooleanField(default:False)
+   user_in_charge : models.ForeignKey(User, on_delete:models.DO_NOTHING, null:True)
+   

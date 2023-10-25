@@ -1,0 +1,16 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: BiotestPlusPack
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   batch : models.ForeignKey(BiotestPlusBatch, on_delete:models.RESTRICT, null:True)
+   unity : models.IntegerField(blank:True, null:True)
+   expiration_date : models.DateField(default:four_months_hence)
+   calibration : models.ForeignKey(BiotestPlusCalibration, on_delete:models.RESTRICT, null:True)
+   spe_batch : models.ForeignKey(SpeBatch, on_delete:models.RESTRICT, null:True)
+   is_assigned : models.BooleanField(default:False)
+   removed : models.BooleanField(default:False)
+   non_assignable : models.BooleanField(default:False)
+   pack_quantity : models.IntegerField(default:20)

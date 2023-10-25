@@ -9,6 +9,7 @@ class DetailComponentTsFile:
 
     def get_file_content(self,lib_name: StringCase, module_name: StringCase, lib_user_type: StringCase, params: [Param]):
         import_services = self._get_fk_imports_services(params,lib_user_type)
+        imports_models = self._get_fk_imports_models(params,module_name)
         form_options = self._get_fk_form_options(params, lib_user_type)
         form_group = self._get_form_group(params)
         getters = self._get_getters(params, module_name)
@@ -22,7 +23,11 @@ class DetailComponentTsFile:
                 import {{ {module_name.pascal}{lib_user_type.pascal}Service }} from '@biolan/biolanglobal/{module_name.kebab}/data-access';
                 import {{ ActionsService }} from '@biolan/biolanglobal/layout/data-access/actions-service';
                 import {{ FilterService }} from '@biolan/biolanglobal/layout/data-access/filter-service';
-                import {{ {module_name.pascal} }} from '@biolan/biolanglobal/utils/model';
+                import {{ {imports_models} }} from '@biolan/biolanglobal/utils/model';
+                import {{ ThemingService }} from '@biolan/biolanglobal/layout/data-access/theming-service';
+                import {{ GlobalFormDateService, GlobalFormValidatorService }} from '@biolan/biolanglobal/utils/services/global-form';
+                import {{ GlobalTranslates }} from '@biolan/biolanglobal/utils/services/global-translations';
+
                 import {{ macRegex }} from '@biolan/shared/utils';
                 import * as moment from 'moment';
                 {import_services}
@@ -36,6 +41,7 @@ class DetailComponentTsFile:
                   @ViewChild('formRef') formRef!: NgForm;
                   {form_options}
                   
+                  {module_name.camel}Data!: {module_name.pascal}
                   {module_name.camel}Form = this._fb.group({{
                     id: null,{form_group}
                   }});              
@@ -46,6 +52,7 @@ class DetailComponentTsFile:
                     private activatedRoute: ActivatedRoute,
                     private filterService: FilterService,
                     private globalFormDateService: GlobalFormDateService,
+                    public globalTranslates: GlobalTranslates,
                     public themingService: ThemingService,
                     private globalFormValidatorService: GlobalFormValidatorService,
                     private actionsService: ActionsService,{constructor_services}
@@ -70,6 +77,7 @@ class DetailComponentTsFile:
                     it into the {module_name.camel}{lib_user_type.pascal}Resolver. No need to make another http call */
                     this.activatedRoute.data.subscribe(({{ {module_name.camel} }}) => {{
                       if({module_name.camel}){{
+                        this.{module_name.camel}Data = {module_name.camel}
                         this.{module_name.camel}Form.patchValue({module_name.camel});
                       }}
                     }});
@@ -77,22 +85,19 @@ class DetailComponentTsFile:
                 
                   onSubmit() {{
                     if (this.formRef.valid) {{
-                      const backupFormValue = {{...this.{module_name.camel}Form.value}}
+                      const backupFormValue = {{...this.{module_name.camel}Form.value}} as Partial<{module_name.pascal}>;
                       {trasform_backup_form_values}
                       
                       const {module_name.camel} = backupFormValue as Partial<{module_name.pascal}>;
-                      if ({module_name.camel}.id) {{
-                        this.{module_name.camel}{lib_user_type.pascal}Service
+                      
+                      const onSubmitAction = {module_name.camel}.id
+                        ? this.{module_name.camel}{lib_user_type.pascal}Service
                           .updateElement({module_name.camel}.id.toString(), {module_name.camel})
-                          .subscribe(()=>{{
-                            this.router.navigate(['/{module_name.kebab}-{lib_user_type.kebab}']);
-                          }});
-                      }} else {{
-                        this.{module_name.camel}{lib_user_type.pascal}Service.createElement({module_name.camel})
-                          .subscribe(()=>{{
-                            this.router.navigate(['/{module_name.kebab}-{lib_user_type.kebab}']);
-                          }});
-                      }}
+                        : this.{module_name.camel}{lib_user_type.pascal}Service.createElement({module_name.camel})
+                
+                      onSubmitAction.subscribe(()=>{{
+                        this.router.navigate(['/{module_name.kebab}-{lib_user_type.kebab}']);
+                      }});
                     }}
                   }}
                 
@@ -103,24 +108,6 @@ class DetailComponentTsFile:
                           this.router.navigate(['/{module_name.kebab}-{lib_user_type.kebab}']);
                         }});
                     }}
-                  }}
-                  private formatDate(
-                      dateValue: any,
-                      format: string | undefined = 'YYYY-MM-DDTHH:mm:ssZZ'
-                    ) {{
-                      if (format) {{
-                        const date = new Date(dateValue);
-                        date.setMinutes(0);
-                        date.setHours(0);
-                        date.setSeconds(0);
-                        return this.format(date, format); //'YYYY-MM-DDTHH:MM:SSZZ'
-                      }}
-                      return dateValue;
-                  }}
-              
-                  private format(value: any, format: string) {{
-                    const date = moment(value);
-                    return date.isValid() ? date.format(format) : value;
                   }}
                 }}
             '''
@@ -136,6 +123,17 @@ class DetailComponentTsFile:
                     created_fks.append(param.fk_model_name.pascal)
                     fk_services += f'''
                 import {{ {param.fk_model_name.pascal}{lib_user_type.pascal}Service }} from '@biolan/biolanglobal/{param.fk_model_name.kebab}/data-access';'''
+        return fk_services
+
+    @staticmethod
+    def _get_fk_imports_models(params, module_name):
+        created_fks = [module_name.pascal]
+        for param in params:
+            if param.type == TYPE_FK:
+                if param.fk_model_name.pascal not in created_fks:
+                    created_fks.append(param.fk_model_name.pascal)
+
+        fk_services = ', '.join(created_fks)
         return fk_services
 
     @staticmethod
@@ -177,7 +175,7 @@ class DetailComponentTsFile:
         for param in params:
             if param.type == TYPE_FK:
                 getters += f'''
-                  get {param.name.camel}(): FormControl<any>  {{ return this.{module_name.camel}Form.get('id') as FormControl<any>; }}'''
+                  get {param.name.camel}(): FormControl<any>  {{ return this.{module_name.camel}Form.get('{param.name.camel}') as FormControl<any>; }}'''
             else:
                 getters += f'''
                   get {param.name.camel}() {{ return this.{module_name.camel}Form.get('{param.name.camel}'); }}'''
@@ -190,7 +188,7 @@ class DetailComponentTsFile:
             if param.type == TYPE_FK:
                 fk_options += f'''
                       if (backupFormValue.{param.name.camel}) {{
-                        backupFormValue.{param.name.camel} = backupFormValue.{param.name.camel}['id']
+                        backupFormValue.{param.name.camel} = (backupFormValue.{param.name.camel} as {param.fk_model_name.pascal})['id']
                       }}'''
 
             elif param.type == TYPE_DATE:

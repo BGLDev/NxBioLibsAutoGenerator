@@ -1,0 +1,16 @@
+PROYECT_ORIGIN_PATH: /home/benat/Personal/01 - BIOLAN Proyects/01 - Biolan global/02_biolan_monorepo_front
+#PROYECT_ORIGIN_PATH: ./__Result
+SCOPE: Biolanglobal
+USER_TYPE: Internal
+DJANGO_MODEL_NAME: BiotestPlusCalibration
+DJANGO_MODEL_EXTENDS: BaseModel
+DJANGO_MODEL_PARAMS:
+   code : models.CharField(max_length:13)
+   biotest_batch : models.ForeignKey(BiotestPlusBatch, on_delete:models.CASCADE, null:True)
+   biosensor7000 : models.ForeignKey(Bio7000, on_delete:models.CASCADE, null:True)
+   m : models.FloatField()
+   b : models.FloatField()
+   r : models.IntegerField()
+   temperature : models.IntegerField(default:0)
+   t : models.IntegerField(default:0)
+   date : models.DateField(null:True)
