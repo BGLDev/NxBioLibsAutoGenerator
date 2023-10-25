@@ -55,7 +55,7 @@ djangorestframework==3.13.1
 djangorestframework-camel-case==1.4.2
 djangorestframework-simplejwt==5.3.0
 docutils==0.17.1
-duplicity==0.8.21
+duplicity>=0.8.21,<0.8.22
 enum-compat==0.0.3
 factory-boy==3.3.0
 Faker==13.14.0
