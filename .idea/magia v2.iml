@@ -3,8 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/venv_nx_auto_generator" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (magia_v2_front)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (NxBioLibsAutoGenerator)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
