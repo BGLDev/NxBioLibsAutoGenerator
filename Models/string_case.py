@@ -7,6 +7,7 @@ class StringCase:
         self.pascal = pascal_string
         self.snake = re.sub(r'(?<!^)(?=[A-Z])', '_', pascal_string).lower()
         self.kebab = re.sub(r'(?<!^)(?=[A-Z])', '-', pascal_string).lower()
+        self.snake_upper = re.sub(r'(?<!^)(?=[A-Z])', '_', pascal_string).upper()
 
     @staticmethod
     def to_pascal_case(input_string):
